@@ -85,7 +85,7 @@ unset($_SESSION['status']);
                         <div class="card-body">
                             <div class="d-flex justify-content-between">
                                 <h5 class="card-title">Barangay Officials</h5>
-                                <button class="btn btn-primary btn-sm mt-4" data-bs-toggle="modal" data-bs-target="#addModal">Add Barangay Official</button>
+                                <button class="btn btn-primary btn-sm m-3" data-bs-toggle="modal" data-bs-target="#addModal">Add Barangay Official</button>
                             </div>
 
                             <!-- Search Form -->
