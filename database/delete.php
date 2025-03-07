@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
         
         if ($stmt = $conn->prepare("DELETE FROM barangay_official WHERE id = ?")) {
-            $stmt->bind_param("i", $id); // Bind the ID parameter
+            $stmt->bind_param("i", $id); 
 
          
             if ($stmt->execute()) {
@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
                 error_log("Delete Error: " . $stmt->error); 
             }
 
-            // Close the statement
+           
             $stmt->close();
         } else {
         
@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             error_log("Prepare Error: " . $conn->error); 
         }
     } else {
-        // Set session status for invalid ID
+        
         $_SESSION['status'] = 'invalid_id';
     }
 

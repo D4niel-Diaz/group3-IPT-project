@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         error_log("Prepare Error: " . $conn->error); 
     }
 
-
+    // Redirect back to the dashboard after updating
     header('Location: ../dashboard.php');
     exit();
 }

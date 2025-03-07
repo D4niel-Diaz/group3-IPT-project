@@ -47,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit();
     }
 
-    // Validate sex (must be either "Male" or "Female")
+    
     if (!in_array(strtolower($sex), ['male', 'female'])) {
         $_SESSION['error_message'] = "Invalid sex value.";
         header('Location: ../dashboard.php');
