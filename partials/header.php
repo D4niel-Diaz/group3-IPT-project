@@ -5,12 +5,12 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Tables / General - e-BOIMS Bootstrap Template</title>
+  <title> e-BOIMS </title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
   <!-- Favicons -->
-  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/eboims.png" rel="icon">
   <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
@@ -48,7 +48,7 @@
         <img src="assets/img/eboims.png" alt="">
         <span class="d-none d-lg-block">e-BOIMS</span>
       </a>
-      <i class="bi bi-list toggle-sidebar-btn"></i>
+      <!-- <i class="bi bi-list toggle-sidebar-btn"></i> -->
     </div><!-- End Logo -->
 
    
