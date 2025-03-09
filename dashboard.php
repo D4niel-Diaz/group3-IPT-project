@@ -72,8 +72,8 @@ unset($_SESSION['status']);
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
-                    <li class="breadcrumb-item">Tables</li>
-                    <li class="breadcrumb-item">General</li>
+                    <li class="breadcrumb-item">Dashboard</li>
+                    <li class="breadcrumb-item">Barangay Official Info</li>
                 </ol>
             </nav>
         </div>
