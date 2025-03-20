@@ -7,11 +7,10 @@ if (!isset($_SESSION['loggedin'])) {
     exit;
 }
 
-
 include('database/database.php');
 include('partials/header.php');
-include('partials/sidebar.php');
 
+// Fetch barangay officials data
 $sql = "SELECT * FROM barangay_official";
 $params = [];
 $types = "";
@@ -47,13 +46,14 @@ unset($_SESSION['status']);
     <title>Barangay Official Management System</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="assets/css/style.css" rel="stylesheet">
 </head>
 <body>
+    <!-- Include Sidebar -->
+    <?php include('partials/sidebar.php'); ?>
+
     <main id="main" class="main">
-        <!-- Logout Button -->
-        <div class="text-end mt-3 me-3">
-            <a href="logout.php" class="btn btn-danger">Logout</a>
-        </div>
 
         <?php if ($status): ?>
             <div class="alert alert-<?php echo ($status == 'error') ? 'danger' : 'success'; ?> alert-dismissible fade show" role="alert">
@@ -61,7 +61,7 @@ unset($_SESSION['status']);
                     if ($status == 'created') echo "New record has been created successfully!";
                     elseif ($status == 'updated') echo "Record has been updated successfully!";
                     elseif ($status == 'deleted') echo "Record has been deleted successfully!";
-                    else echo "An error occurred.";
+                    else echo $error_message ? $error_message : "An error occurred.";
                 ?>
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
@@ -72,8 +72,8 @@ unset($_SESSION['status']);
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
-                    <li class="breadcrumb-item">Dashboard</li>
-                    <li class="breadcrumb-item">Barangay Official Info</li>
+                    <li class="breadcrumb-item">Tables</li>
+                    <li class="breadcrumb-item">General</li>
                 </ol>
             </nav>
         </div>
@@ -85,16 +85,10 @@ unset($_SESSION['status']);
                         <div class="card-body">
                             <div class="d-flex justify-content-between">
                                 <h5 class="card-title">Barangay Officials</h5>
-                                <button class="btn btn-primary btn-sm m-3" data-bs-toggle="modal" data-bs-target="#addModal">Add Barangay Official</button>
+                                <button class="btn btn-primary btn-sm mt-4" data-bs-toggle="modal" data-bs-target="#addModal">Add Barangay Official</button>
                             </div>
 
-                            <!-- Search Form -->
-                            <form method="GET" action="" class="mb-3">
-                                <div class="input-group">
-                                    <input type="text" name="search" class="form-control" placeholder="Search..." value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>">
-                                    <button type="submit" class="btn btn-primary">Search</button>
-                                </div>
-                            </form>
+                            
 
                             <!-- Barangay Officials Table -->
                             <table class="table">
@@ -200,7 +194,13 @@ unset($_SESSION['status']);
                                         </div>
                                         <div class="mb-3">
                                             <label for="position" class="form-label">Position</label>
-                                            <input type="text" class="form-control" id="position" name="position" required>
+                                            <select class="form-control" id="position" name="position" required>
+                                                <option value="Barangay Captain">Barangay Captain</option>
+                                                <option value="Barangay Kagawad">Barangay Kagawad</option>
+                                                <option value="Barangay Secretary">Barangay Secretary</option>
+                                                <option value="Barangay Treasurer">Barangay Treasurer</option>
+                                                <option value="SK Chairman">SK Chairman</option>
+                                            </select>
                                         </div>
                                         <div class="mb-3">
                                             <label for="sex" class="form-label">Sex</label>
@@ -248,7 +248,13 @@ unset($_SESSION['status']);
                                         </div>
                                         <div class="mb-3">
                                             <label class="form-label">Position</label>
-                                            <input type="text" class="form-control" id="edit-position" name="position" required>
+                                            <select class="form-control" id="edit-position" name="position" required>
+                                                <option value="Barangay Captain">Barangay Captain</option>
+                                                <option value="Barangay Kagawad">Barangay Kagawad</option>
+                                                <option value="Barangay Secretary">Barangay Secretary</option>
+                                                <option value="Barangay Treasurer">Barangay Treasurer</option>
+                                                <option value="SK Chairman">SK Chairman</option>
+                                            </select>
                                         </div>
                                         <div class="mb-3">
                                             <label class="form-label">Sex</label>
@@ -284,12 +290,10 @@ unset($_SESSION['status']);
                                         <li><strong>Position:</strong> <span id="modalPosition"></span></li>
                                         <li><strong>Sex:</strong> <span id="modalSex"></span></li>
                                     </ul>
-                                    
                                     <input type="hidden" id="deleteId">
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                    <!-- Confirm Delete Button -->
                                     <button type="button" class="btn btn-danger" id="confirmDelete">Delete</button>
                                 </div>
                             </div>
@@ -320,93 +324,96 @@ unset($_SESSION['status']);
         </section>
     </main>
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        // Edit Modal
-        document.querySelectorAll('.edit-btn').forEach(button => {
-            button.addEventListener('click', () => {
-                const id = button.getAttribute('data-id');
-                const fullName = button.getAttribute('data-full-name');
-                const middleName = button.getAttribute('data-middle-name');
-                const lastName = button.getAttribute('data-last-name');
-                const age = button.getAttribute('data-age');
-                const position = button.getAttribute('data-position');
-                const sex = button.getAttribute('data-sex');
+   <!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    // Edit Modal
+    document.querySelectorAll('.edit-btn').forEach(button => {
+        button.addEventListener('click', () => {
+            const id = button.getAttribute('data-id');
+            const fullName = button.getAttribute('data-full-name');
+            const middleName = button.getAttribute('data-middle-name');
+            const lastName = button.getAttribute('data-last-name');
+            const age = button.getAttribute('data-age');
+            const position = button.getAttribute('data-position');
+            const sex = button.getAttribute('data-sex');
 
-                document.getElementById('edit-id').value = id;
-                document.getElementById('edit-full-name').value = fullName;
-                document.getElementById('edit-middle-name').value = middleName;
-                document.getElementById('edit-last-name').value = lastName;
-                document.getElementById('edit-age').value = age;
-                document.getElementById('edit-position').value = position;
-                document.getElementById('edit-sex').value = sex;
-            });
+            // Populate the form fields
+            document.getElementById('edit-id').value = id;
+            document.getElementById('edit-full-name').value = fullName;
+            document.getElementById('edit-middle-name').value = middleName;
+            document.getElementById('edit-last-name').value = lastName;
+            document.getElementById('edit-age').value = age;
+            document.getElementById('edit-position').value = position;
+            document.getElementById('edit-sex').value = sex;
         });
+    });
 
-        // Delete Modal
-        document.addEventListener("DOMContentLoaded", function () {
-            // Attach click event to delete buttons
-            document.querySelectorAll('.delete-btn').forEach(button => {
-                button.addEventListener('click', () => {
-                    const id = button.getAttribute('data-id');
-                    const fullName = button.getAttribute('data-full-name');
-                    const middleName = button.getAttribute('data-middle-name');
-                    const lastName = button.getAttribute('data-last-name');
-                    const age = button.getAttribute('data-age');
-                    const position = button.getAttribute('data-position');
-                    const sex = button.getAttribute('data-sex');
+   // Delete Modal
+    document.querySelectorAll('.delete-btn').forEach(button => {
+        button.addEventListener('click', () => {
+            // Get data attributes from the button
+            const id = button.getAttribute('data-id');
+            const fullName = button.getAttribute('data-full-name');
+            const middleName = button.getAttribute('data-middle-name');
+            const lastName = button.getAttribute('data-last-name');
+            const age = button.getAttribute('data-age');
+            const position = button.getAttribute('data-position');
+            const sex = button.getAttribute('data-sex');
 
-                    // Populate the modal with data
-                    document.getElementById('modalFullName').textContent = fullName;
-                    document.getElementById('modalMiddleName').textContent = middleName;
-                    document.getElementById('modalLastName').textContent = lastName;
-                    document.getElementById('modalAge').textContent = age;
-                    document.getElementById('modalPosition').textContent = position;
-                    document.getElementById('modalSex').textContent = sex;
-                    document.getElementById('deleteId').value = id;
+            // Populate the modal fields
+            document.getElementById('deleteId').value = id;
+            document.getElementById('modalFullName').textContent = fullName;
+            document.getElementById('modalMiddleName').textContent = middleName;
+            document.getElementById('modalLastName').textContent = lastName;
+            document.getElementById('modalAge').textContent = age;
+            document.getElementById('modalPosition').textContent = position;
+            document.getElementById('modalSex').textContent = sex;
 
-                    
-                    const deleteModal = new bootstrap.Modal(document.getElementById('deleteModal'));
-                    deleteModal.show();
-                });
-            });
-
-            // Confirm Delete Button
-            document.getElementById('confirmDelete').addEventListener('click', function () {
-                const id = document.getElementById('deleteId').value;
-
-                if (id) {
-                    
-                    const confirmDelete = confirm("Are you sure you want to delete this record? This action cannot be undone.");
-                    if (confirmDelete) {
-                       
-                        window.location.href = `database/delete.php?id=${id}`;
-                    }
-                } else {
-                    alert("No record selected for deletion."); 
-                }
-            });
+           
         });
+    });
 
-        // View Modal
-        document.querySelectorAll('.view-btn').forEach(button => {
-            button.addEventListener('click', () => {
-                const fullName = button.getAttribute('data-full-name');
-                const middleName = button.getAttribute('data-middle-name');
-                const lastName = button.getAttribute('data-last-name');
-                const age = button.getAttribute('data-age');
-                const position = button.getAttribute('data-position');
-                const sex = button.getAttribute('data-sex');
+    // Confirm Delete Button (Avoid multiple event listeners)
+    document.getElementById('confirmDelete').addEventListener('click', function () {
+        const id = document.getElementById('deleteId').value;
 
-                document.getElementById('view-full-name').textContent = fullName;
-                document.getElementById('view-middle-name').textContent = middleName;
-                document.getElementById('view-last-name').textContent = lastName;
-                document.getElementById('view-age').textContent = age;
-                document.getElementById('view-position').textContent = position;
-                document.getElementById('view-sex').textContent = sex;
-            });
+        if (id) {
+            // Confirm deletion
+            if (confirm("Are you sure you want to delete this record? This action cannot be undone.")) {
+                // Redirect to delete script
+                window.location.href = `database/delete.php?id=${id}`;
+            }
+        } else {
+            alert("No record selected for deletion.");
+        }
+    });
+
+
+
+    // View Modal
+    document.querySelectorAll('.view-btn').forEach(button => {
+        button.addEventListener('click', () => {
+            const fullName = button.getAttribute('data-full-name');
+            const middleName = button.getAttribute('data-middle-name');
+            const lastName = button.getAttribute('data-last-name');
+            const age = button.getAttribute('data-age');
+            const position = button.getAttribute('data-position');
+            const sex = button.getAttribute('data-sex');
+
+            document.getElementById('view-full-name').textContent = fullName;
+            document.getElementById('view-middle-name').textContent = middleName;
+            document.getElementById('view-last-name').textContent = lastName;
+            document.getElementById('view-age').textContent = age;
+            document.getElementById('view-position').textContent = position;
+            document.getElementById('view-sex').textContent = sex;
         });
-    </script>
-</body>
-</html>
+    });
+</script>
+
+<!-- Footer -->
+<footer class="footer mt-auto py-3 bg-light">
+    <div class="container text-center">
+        <span class="text-muted">© 2024 Barangay Official Management System. All rights reserved.</span>
+    </div>
+</footer>
