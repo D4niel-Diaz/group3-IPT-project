@@ -33,63 +33,66 @@
 <body>
 
   <!-- ======= Header ======= -->
-  <header id="header" class="header fixed-top d-flex align-items-center">
+  <header id="header" class="header fixed-top d-flex align-items-center shadow-sm">
 
+    <!-- Logo and System Name -->
     <div class="d-flex align-items-center justify-content-between">
       <a href="dashboard.php" class="logo d-flex align-items-center">
-        <img src="assets/img/eboims.png" alt="">
-        <span class="d-none d-lg-block">e-BOIMS</span>
+        <img src="assets/img/a.png" alt="e-BOIMS Logo" class="me-2" style="height: 40px;">
+        <span class="d-none d-lg-block fs-5 fw-bold">Barangay Management System</span>
       </a>
     </div><!-- End Logo -->
 
+    <!-- Navigation and Profile Section -->
     <nav class="header-nav ms-auto d-flex align-items-center">
-      
+
       <!-- Search Form -->
-      <form method="GET" action="" class="d-none d-lg-block mx-auto" style="max-width: 300px;">
+      <form method="GET" action="" class="d-none d-lg-block mx-4" style="max-width: 400px;">
         <div class="input-group">
-            <input type="text" name="search" class="form-control rounded-start-pill" placeholder="Search..." 
-                value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>">
-            <button type="submit" class="btn btn-primary rounded-end-pill">
-                <i class="bi bi-search"></i>
-            </button>
+          <input type="text" name="search" class="form-control rounded-pill" placeholder="Search barangay officials" 
+                 value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>">
+          <button type="submit" class="btn btn-primary rounded-pill ms-2">
+            <i class="bi bi-search"></i>
+          </button>
         </div>
-      </form>
-      <!-- End Search Form -->
+      </form><!-- End Search Form -->
 
       <!-- Profile Dropdown -->
-      <li class="nav-item dropdown pe-3 list-unstyled">
-        <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-          <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
-          <span class="d-none d-md-block dropdown-toggle ps-2">Admin</span>
-        </a><!-- End Profile Image Icon -->
+      <ul class="navbar-nav">
+        <li class="nav-item dropdown pe-3">
+          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+            <img src="assets/img/b.png" alt="Profile" class="rounded-circle" style="width: 40px; height: 40px;">
+            <span class="d-none d-md-block dropdown-toggle ps-2 fw-medium">Admin</span>
+          </a><!-- End Profile Image Icon -->
 
-        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
-          <li class="dropdown-header">
-            <h6>Admin</h6>
-            <span>System Administrator</span>
-          </li>
-          <li>
-            <hr class="dropdown-divider">
-          </li>
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile shadow">
+            <li class="dropdown-header text-center">
+              <h6 class="mb-0">Admin</h6>
+              <span class="text-muted">System Administrator</span>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
 
-          <li>
-            <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
-              <i class="bi bi-person"></i>
-              <span>My Profile</span>
-            </a>
-          </li>
-          <li>
-            <hr class="dropdown-divider">
-          </li>
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+                <i class="bi bi-person me-2"></i>
+                <span>My Profile</span>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
 
-          <li>
-            <a class="dropdown-item d-flex align-items-center" href="logout.php">
-              <i class="bi bi-box-arrow-right"></i>
-              <span>Sign Out</span>
-            </a>
-          </li>
-        </ul><!-- End Profile Dropdown Items -->
-      </li><!-- End Profile Nav -->
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="logout.php">
+                <i class="bi bi-box-arrow-right me-2"></i>
+                <span>Sign Out</span>
+              </a>
+            </li>
+          </ul><!-- End Profile Dropdown Items -->
+        </li><!-- End Profile Nav -->
+      </ul>
 
     </nav><!-- End Icons Navigation -->
 
