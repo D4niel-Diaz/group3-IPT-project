@@ -46,9 +46,9 @@ include('partials/sidebar.php');
                                 <?php
                                 // Sample Data (Replace with Database Fetching in Future)
                                 $requests = [
-                                    ["John Doe", "Residency", "For School Enrollment", "Pending"],
-                                    ["Jane Smith", "Indigency", "Financial Assistance", "Approved"],
-                                    ["Mark Lee", "Business Clearance", "Business Permit Application", "Denied"]
+                                    ["John Ronald", "Residency", "For School Enrollment", "Pending"],
+                                    ["Daniel", "Indigency", "Financial Assistance", "Approved"],
+                                    ["Gian Carlo", "Business Clearance", "Business Permit Application", "Denied"]
                                 ];
 
                                 foreach ($requests as $request) {
