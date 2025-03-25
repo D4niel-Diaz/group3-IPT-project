@@ -25,12 +25,7 @@
             <span>Officials List</span>
           </a>
         </li>
-        <li>
-          <a href="#?section=add-official">
-            <i class="bi bi-circle"></i>
-            <span>Add New Official</span>
-          </a>
-        </li>
+        
       </ul>
     </li><!-- End Officials Nav -->
 
@@ -50,6 +45,14 @@
         </li>
       </ul>
     </li><!-- End Certificates Nav -->
+
+    <!--Role Management-->
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="rolemanagement.php">
+        <i class="bi bi-grid"></i>
+        <span> Role Management</span>
+      </a>
+    </li>
 
     <!-- Blotter -->
     <li class="nav-item">
