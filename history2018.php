@@ -16,10 +16,7 @@ include('partials/sidebar.php');
 </head>
 <body>
 <main id="main" class="main">
-        <!-- Logout Button -->
-        <div class="text-end mt-3 me-3">
-            <a href="logout.php" class="btn btn-danger">Logout</a>
-        </div>
+       
 
 
 

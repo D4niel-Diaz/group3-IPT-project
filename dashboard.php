@@ -55,17 +55,17 @@ unset($_SESSION['status']);
 
     <main id="main" class="main">
 
-        <?php if (isset($status)): ?>
+        <?php if ($status): ?>
             <div class="alert alert-<?php echo ($status == 'error') ? 'danger' : 'success'; ?> alert-dismissible fade show" role="alert">
                 <?php 
                     if ($status == 'success') {
-                        echo isset($success_message) ? $success_message : "New record has been created successfully!";
+                        echo !empty($success_message) ? $success_message : "New record has been created successfully!";
                     } elseif ($status == 'updated') {
                         echo "Record has been updated successfully!";
                     } elseif ($status == 'deleted') {
                         echo "Record has been deleted successfully!";
                     } else {
-                        echo isset($error_message) ? $error_message : "An error occurred.";
+                        echo !empty($error_message) ? $error_message : "An error occurred.";
                     }
                 ?>
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
